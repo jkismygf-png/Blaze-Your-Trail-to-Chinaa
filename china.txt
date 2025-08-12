@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Journey to China — Your Plan</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#e76f51;--muted:#9aa4b2;--glass:rgba(255,255,255,0.04)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{background:linear-gradient(180deg,#071028 0%, #071a2b 60%);color:#e6eef6;display:flex;align-items:flex-start;justify-content:center;padding:28px}
+    .wrap{width:100%;max-width:980px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .logo{width:76px;height:76px;border-radius:14px;background-image:linear-gradient(135deg,#1b5f9e,#e76f51);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:14px}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .big{padding:26px}
+
+    .gallery{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+    .gallery img{height:120px;border-radius:8px;flex:0 0 auto;object-fit:cover}
+
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .section-title h2{margin:0;font-size:16px}
+    small{color:var(--muted)}
+
+    .progress-wrap{background:var(--glass);padding:12px;border-radius:10px}
+    .progress-bar{height:16px;background:rgba(255,255,255,0.06);border-radius:8px;overflow:hidden}
+    .progress-bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#f6c177);width:0%}
+    .stats{display:flex;gap:12px;margin-top:10px}
+    .stat{flex:1;background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;text-align:center}
+    .stat b{display:block;font-size:18px}
+
+    .todo-list{max-height:220px;overflow:auto;padding-right:8px}
+    .todo-item{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.01)}
+    .todo-item input[type=checkbox]{transform:scale(1.1)}
+    .todo-item .task{flex:1}
+    .button{background:var(--accent);border:none;padding:8px 12px;border-radius:8px;color:#071028;font-weight:600;cursor:pointer}
+    .muted-btn{background:transparent;border:1px solid rgba(255,255,255,0.05);padding:8px;border-radius:8px;color:var(--muted);cursor:pointer}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* small screen */
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}.gallery img{height:92px}}
+
+    /* simple form styles */
+    input[type=text], input[type=number], textarea{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+
+    .countdown{display:flex;gap:8px}
+    .countdown .box{background:rgba(255,255,255,0.02);padding:8px;border-radius:8px;text-align:center;min-width:64px}
+
+    .notes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .note{background:rgba(255,255,255,0.02);padding:8px;border-radius:8px}
+    @media(max-width:700px){.notes{grid-template-columns:1fr}}
+
+    .credit{font-size:12px;color:var(--muted);margin-top:10px}
+
+    .pwd-overlay{position:fixed;inset:0;background:rgba(2,6,23,0.7);display:flex;align-items:center;justify-content:center}
+    .pwd-box{background:#071a2b;border-radius:12px;padding:18px;width:360px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">J→C</div>
+      <div>
+        <h1>Journey to China — a space for her dream</h1>
+        <p class="lead">A private mini-site: inspiration, plan, savings tracker and small daily encouragements.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card big">
+          <div class="section-title"><h2>Welcome</h2><small>Made with care</small></div>
+          <p>Hi — this little corner is for her dream to go to China. Use the panels to save, plan and stay inspired. Everything you fill here is stored locally on your device (use the <em>Export</em> buttons if you want a backup).</p>
+
+          <div style="margin-top:14px">
+            <div class="gallery" id="gallery">
+              <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=5a3c2c6f1b8e7e2c8d7f8f2c7f4b1a9a" alt="Great Wall">
+              <img src="https://images.unsplash.com/photo-1505765054867-4a1f9c8b6c6f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b4a6d2b8b9f6c8a5c2d9a6a7b3c8d2e" alt="Shanghai skyline">
+              <img src="https://images.unsplash.com/photo-1505765054866-2c4a34f5ff29?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a7b6c5d4e3f2a1b0c9d8e7f6b5a4c3b" alt="Forbidden City">
+              <img src="https://images.unsplash.com/photo-1526481280698-1315d2f4ae0b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=77f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2" alt="Lanterns">
+            </div>
+          </div>
+
+          <hr style="opacity:.06;margin:16px 0">
+
+          <div class="section-title"><h2>Savings Tracker</h2><small>Set goal & update progress</small></div>
+          <div class="progress-wrap">
+            <label>Goal amount (EUR)</label>
+            <input id="goalInput" type="number" min="0" placeholder="Example: 3000">
+            <label style="margin-top:8px">Current saved</label>
+            <input id="currentInput" type="number" min="0" placeholder="Example: 450">
+
+            <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+              <button class="button" id="saveGoalBtn">Save</button>
+              <button class="muted-btn" id="addNowBtn">Add an amount</button>
+              <button class="muted-btn" id="exportSavings">Export</button>
+            </div>
+
+            <div style="margin-top:12px">
+              <div class="progress-bar"><i id="progressFill"></i></div>
+              <div class="stats">
+                <div class="stat"><b id="pct">0%</b><small>Progress</small></div>
+                <div class="stat"><b id="left">€0</b><small>Remaining</small></div>
+                <div class="stat"><b id="goalAmount">€0</b><small>Goal</small></div>
+              </div>
+            </div>
+          </div>
+
+          <hr style="opacity:.06;margin:16px 0">
+
+          <div class="section-title"><h2>Planning & To-do</h2><small>Steps that make the dream real</small></div>
+          <div>
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <input id="newTask" type="text" placeholder="Add a task: e.g. search affordable Mandarin courses">
+              <button class="button" id="addTaskBtn">Add</button>
+            </div>
+            <div class="todo-list card" id="todoList"></div>
+            <div style="margin-top:8px;display:flex;gap:8px">
+              <button class="muted-btn" id="exportTasks">Export tasks</button>
+              <button class="muted-btn" id="clearTasks">Clear all</button>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <div class="section-title"><h2>Motivation Playlist</h2><small>Open and listen together</small></div>
+          <p class="muted">Click play to open a playlist in a new tab (you can paste your own playlist URL later)</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <input id="playlistUrl" type="text" placeholder="Paste YouTube or Spotify share URL here">
+            <button class="button" id="openPlaylist">Open</button>
+            <button class="muted-btn" id="savePlaylist">Save</button>
+          </div>
+
+          <hr style="opacity:.06;margin:14px 0">
+          <div class="section-title"><h2>Encouragement Wall</h2><small>Notes & small messages</small></div>
+          <div style="margin-bottom:8px;display:flex;gap:8px">
+            <input id="noteInput" type="text" placeholder="Write a short encouragement...">
+            <button class="button" id="addNoteBtn">Add</button>
+          </div>
+          <div class="notes" id="notes"></div>
+          <div class="credit">Tip: leave one note every few days — tiny consistent support builds trust.</div>
+        </section>
+
+      </main>
+
+      <aside>
+        <div class="card">
+          <div class="section-title"><h2>Quick Stats</h2><small>At-a-glance</small></div>
+          <div style="margin-top:8px">
+            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+              <div>
+                <label>Planned visit date</label>
+                <input id="visitDate" type="text" placeholder="YYYY-MM-DD or leave blank">
+              </div>
+            </div>
+            <div style="margin-top:10px" class="countdown" id="countdownWrap"></div>
+          </div>
+
+          <hr style="opacity:.06;margin:14px 0">
+
+          <div class="section-title"><h2>Mini Tools</h2><small>Small helpers</small></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="muted-btn" id="printSavings">Printable tracker</button>
+            <button class="muted-btn" id="resetAll">Reset all data</button>
+            <button class="muted-btn" id="downloadSite">Download HTML</button>
+          </div>
+
+          <div style="margin-top:8px;color:var(--muted);font-size:13px">This site stores data in your browser only. To keep it private, share link only with her — or download and send the file directly.</div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="section-title"><h2>Privacy & Password</h2><small>Optional</small></div>
+          <p class="muted">You can set a viewing password. Enter a passphrase below (default: &quot;open&quot;). She will need the passphrase to open the site.</p>
+          <input id="pwdInput" type="text" placeholder="Type a passphrase e.g. hernickname123">
+          <div style="margin-top:8px;display:flex;gap:8px"><button class="button" id="savePwd">Save Passphrase</button><button class="muted-btn" id="clearPwd">Clear</button></div>
+        </div>
+      </aside>
+
+    </div>
+
+    <footer>Made with care • Edit text, images and tips to make it more personal.</footer>
+  </div>
+
+  <!-- password overlay (simple client-side protection) -->
+  <div id="pwdOverlay" class="pwd-overlay" style="display:none">
+    <div class="pwd-box">
+      <h3>Enter passphrase to open</h3>
+      <p style="color:var(--muted);margin-top:6px">This keeps your mini-site private on shared machines. (Client-side only.)</p>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <input id="pwdAttempt" type="text" placeholder="Enter passphrase">
+        <button class="button" id="tryPwd">Open</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Utilities: localStorage keys ---
+    const KEYS = {GOAL:'jc_goal',CURRENT:'jc_current',TASKS:'jc_tasks',NOTES:'jc_notes',PLAY:'jc_play',VISIT:'jc_visit',PWD:'jc_pwd'}
+
+    // --- Savings ---
+    const goalInput = document.getElementById('goalInput');
+    const currentInput = document.getElementById('currentInput');
+    const saveGoalBtn = document.getElementById('saveGoalBtn');
+    const addNowBtn = document.getElementById('addNowBtn');
+    const progressFill = document.getElementById('progressFill');
+    const pct = document.getElementById('pct');
+    const left = document.getElementById('left');
+    const goalAmount = document.getElementById('goalAmount');
+    const exportSavings = document.getElementById('exportSavings');
+
+    function readSavings(){
+      const goal = Number(localStorage.getItem(KEYS.GOAL) || 0);
+      const current = Number(localStorage.getItem(KEYS.CURRENT) || 0);
+      return {goal,current}
+    }
+    function updateSavingsUI(){
+      const {goal,current} = readSavings();
+      const percentage = goal>0?Math.min(100, Math.round(current/goal*100)):0;
+      progressFill.style.width = percentage + '%';
+      pct.textContent = percentage + '%';
+      left.textContent = '€' + Math.max(0, (goal-current).toFixed(0));
+      goalAmount.textContent = '€' + goal.toFixed(0);
+    }
+    saveGoalBtn.addEventListener('click', ()=>{
+      const g = Number(goalInput.value || 0);
+      const c = Number(currentInput.value || 0);
+      if(g<0||c<0){alert('Amounts must be positive');return}
+      localStorage.setItem(KEYS.GOAL,g);
+      localStorage.setItem(KEYS.CURRENT,c);
+      updateSavingsUI();
+      alert('Saved!');
+    })
+    addNowBtn.addEventListener('click', ()=>{
+      const amt = prompt('Enter an amount to add (EUR):');
+      const a = Number(amt);
+      if(isNaN(a) || a<=0) return; 
+      const cur = Number(localStorage.getItem(KEYS.CURRENT) || 0);
+      localStorage.setItem(KEYS.CURRENT, cur + a);
+      updateSavingsUI();
+    })
+    exportSavings.addEventListener('click', ()=>{
+      const s = readSavings();
+      const blob = new Blob([JSON.stringify(s,null,2)],{type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download='savings.json'; a.click(); URL.revokeObjectURL(url);
+    })
+
+    // --- Tasks ---
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const newTask = document.getElementById('newTask');
+    const todoList = document.getElementById('todoList');
+
+    function readTasks(){return JSON.parse(localStorage.getItem(KEYS.TASKS)||'[]')}
+    function saveTasks(tasks){localStorage.setItem(KEYS.TASKS, JSON.stringify(tasks))}
+    function renderTasks(){
+      const tasks = readTasks(); todoList.innerHTML='';
+      tasks.forEach((t,i)=>{
+        const el = document.createElement('div'); el.className='todo-item';
+        const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!t.done;
+        const span = document.createElement('div'); span.className='task'; span.textContent = t.text; if(t.done) span.style.textDecoration='line-through';
+        const del = document.createElement('button'); del.className='muted-btn'; del.textContent='Remove';
+        cb.addEventListener('change', ()=>{t.done=cb.checked; saveTasks(tasks); renderTasks()});
+        del.addEventListener('click', ()=>{tasks.splice(i,1); saveTasks(tasks); renderTasks()});
+        el.appendChild(cb); el.appendChild(span); el.appendChild(del); todoList.appendChild(el);
+      })
+    }
+    addTaskBtn.addEventListener('click', ()=>{const txt=newTask.value.trim(); if(!txt) return; const tasks=readTasks(); tasks.push({text:txt,done:false}); saveTasks(tasks); newTask.value=''; renderTasks();})
+    document.getElementById('exportTasks').addEventListener('click', ()=>{const blob=new Blob([localStorage.getItem(KEYS.TASKS)||'[]'],{type:'application/json'}); const u=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=u; a.download='tasks.json'; a.click(); URL.revokeObjectURL(u)});
+    document.getElementById('clearTasks').addEventListener('click', ()=>{if(confirm('Clear all tasks?')){localStorage.removeItem(KEYS.TASKS); renderTasks()}})
+
+    // --- Notes / Encouragements ---
+    const addNoteBtn = document.getElementById('addNoteBtn');
+    const noteInput = document.getElementById('noteInput');
+    const notesWrap = document.getElementById('notes');
+    function readNotes(){return JSON.parse(localStorage.getItem(KEYS.NOTES)||'[]')}
+    function saveNotes(n){localStorage.setItem(KEYS.NOTES, JSON.stringify(n))}
+    function renderNotes(){const n=readNotes(); notesWrap.innerHTML=''; n.forEach((note,i)=>{const d=document.createElement('div'); d.className='note'; d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start"><div style="flex:1"><div style="font-size:14px">${escapeHtml(note.text)}</div><div style="margin-top:6px;color:var(--muted);font-size:12px">${new Date(note.at).toLocaleString()}</div></div><button class='muted-btn'>Remove</button></div>`; d.querySelector('button').addEventListener('click',()=>{const arr=readNotes();arr.splice(i,1);saveNotes(arr);renderNotes()}); notesWrap.appendChild(d)})}
+    addNoteBtn.addEventListener('click', ()=>{const t=noteInput.value.trim(); if(!t) return; const arr=readNotes(); arr.unshift({text:t,at:Date.now()}); saveNotes(arr); noteInput.value=''; renderNotes()})
+
+    // --- Playlist ---
+    const playlistUrl = document.getElementById('playlistUrl');
+    document.getElementById('openPlaylist').addEventListener('click', ()=>{const u=playlistUrl.value.trim(); if(!u) {alert('Paste a playlist URL first (YouTube / Spotify share link)'); return} window.open(u,'_blank')});
+    document.getElementById('savePlaylist').addEventListener('click', ()=>{const u=playlistUrl.value.trim(); if(!u) return; localStorage.setItem(KEYS.PLAY,u); alert('Saved!')});
+
+    // --- Visit date & countdown ---
+    const visitDate = document.getElementById('visitDate');
+    const countdownWrap = document.getElementById('countdownWrap');
+    function renderCountdown(){const v = localStorage.getItem(KEYS.VISIT); countdownWrap.innerHTML=''; if(!v) return; const target = new Date(v); const now=new Date(); if(isNaN(target)) return; let diff = target - now; if(diff<=0){countdownWrap.innerHTML='<div class="box">It\'s time! 🎉</div>'; return}
+      const days = Math.floor(diff/86400000); diff%=86400000; const hours = Math.floor(diff/3600000); const mins = Math.floor((diff%3600000)/60000);
+      countdownWrap.innerHTML = `<div class="box"><b>${days}</b><div style="font-size:12px;color:var(--muted)">days</div></div><div class="box"><b>${hours}</b><div style="font-size:12px;color:var(--muted)">hours</div></div><div class="box"><b>${mins}</b><div style="font-size:12px;color:var(--muted)">mins</div></div>`
+    }
+    visitDate.addEventListener('change', ()=>{localStorage.setItem(KEYS.VISIT, visitDate.value); renderCountdown()})
+
+    // --- Download the HTML file (current page) ---
+    document.getElementById('downloadSite').addEventListener('click', ()=>{
+      const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html],{type:'text/html'});
+      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='journey_to_china.html'; a.click(); URL.revokeObjectURL(url);
+    })
+
+    // --- Printable savings tracker ---
+    document.getElementById('printSavings').addEventListener('click', ()=>{
+      const s = readSavings(); const w = window.open('','_blank');
+      const html = `<html><head><title>Printable savings tracker</title></head><body style="font-family:Arial;">`+
+        `<h2>Journey to China - Savings tracker</h2><p>Goal: €${s.goal}</p><p>Saved: €${s.current}</p>`+
+        `<div style="width:100%;background:#eee;height:20px;border-radius:10px"><div style="height:100%;width:${(s.goal?Math.min(100,(s.current/s.goal*100)):0)}%;background:#f08;border-radius:10px"></div></div>`+
+        `<p>Remaining: €${Math.max(0,(s.goal-s.current)).toFixed(0)}</p></body></html>`;
+      w.document.write(html); w.document.close(); w.print();
+    })
+
+    // --- Reset all ---
+    document.getElementById('resetAll').addEventListener('click', ()=>{if(confirm('Reset all saved data? This cannot be undone.')){Object.values(KEYS).forEach(k=>localStorage.removeItem(k)); location.reload()}})
+
+    // --- Password handling (simple client-only) ---
+    const pwdOverlay = document.getElementById('pwdOverlay');
+    const pwdInput = document.getElementById('pwdInput');
+    const savePwd = document.getElementById('savePwd');
+    const clearPwd = document.getElementById('clearPwd');
+    const tryPwd = document.getElementById('tryPwd');
+    const pwdAttempt = document.getElementById('pwdAttempt');
+
+    savePwd.addEventListener('click', ()=>{const p = pwdInput.value.trim()||'open'; localStorage.setItem(KEYS.PWD, p); alert('Passphrase saved.'); pwdInput.value='';})
+    clearPwd.addEventListener('click', ()=>{localStorage.removeItem(KEYS.PWD); alert('Passphrase cleared (site open).')})
+    tryPwd.addEventListener('click', ()=>{const p = pwdAttempt.value; const saved = localStorage.getItem(KEYS.PWD) || 'open'; if(p===saved){pwdOverlay.style.display='none'} else {alert('Wrong passphrase')}})
+
+    // --- small helpers ---
+    function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+    // --- load stored values on init ---
+    function init(){
+      const s = readSavings(); if(s.goal) goalInput.value = s.goal; if(s.current) currentInput.value = s.current; updateSavingsUI();
+      renderTasks(); renderNotes();
+      const p = localStorage.getItem(KEYS.PLAY); if(p) playlistUrl.value = p;
+      const v = localStorage.getItem(KEYS.VISIT); if(v) visitDate.value = v; renderCountdown();
+      // show password overlay if a passphrase is set
+      const saved = localStorage.getItem(KEYS.PWD);
+      if(saved){pwdOverlay.style.display='flex'}
+    }
+    init();
+
+    // update countdown every minute
+    setInterval(renderCountdown, 60000);
+  </script>
+</body>
+</html>
